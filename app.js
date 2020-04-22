@@ -1,0 +1,65 @@
+//Dependencies for the server
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const path = require("path");
+const body_parser = require("body-parser");
+const passport = require("passport");
+const keys = require("./config/keys");
+const compression = require("compression");
+
+//Conects to the mongoDb database
+mongoose.connect(process.env.MONGODB_URI || keys.mongodb.dbURI);
+
+//Checks for database connection
+mongoose.connection.on("connected", function () {
+    console.log("The server has connected to the database");
+})
+
+//Checks for database connection error
+mongoose.connection.on("error", function (err) {
+    console.log("The server has failed to connect to the database: " + err);
+})
+
+
+//Creates application with framework(routing is main)
+const app = express();
+
+//Used for all /api requests
+const api = require("./routes/api");
+
+//Port for the server
+const port = process.env.PORT || 80;
+
+//Uses CORS middleware
+app.use(cors());
+
+//Use body parser for parsing application/json 
+app.use(body_parser.json());
+
+// Passport middleware for token authentication
+app.use(passport.initialize());
+app.use(passport.session());
+
+// install it like expressJS middleware
+app.use(compression());
+
+require('dotenv').config()
+require("./config/passport")(passport);
+
+//Static folder for Client part
+app.use(express.static(path.join(__dirname, "public")));
+
+//Router for the /users api
+app.use("/api", api);
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "public/index.html"));
+})
+
+//Starts the server
+app.listen(port, function () {
+    console.log("The server has started at port " + port);
+});
+
+

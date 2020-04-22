@@ -1,0 +1,63 @@
+.container {
+  width: 90%;
+}
+
+.profile-img {
+  border-radius: 50%;
+  width: 3em;
+  height: 3em;
+  box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.5);
+  margin-right: 2em;
+  margin: 1em;
+}
+.progress{
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+.img-fluid{
+  max-width: 500px;
+  width:100%;
+}
+
+.username {
+  color: BLACK;
+  text-decoration: none;
+  margin-left: 20px;
+}
+
+.username:hover {
+    text-decoration:underline;
+    }
+
+.list-group {
+  word-break: break-all;
+  overflow: hidden;
+}
+
+.countdown {
+  margin-top: 0.5em;
+  float: right;
+}
+
+@media (max-width: 500px) {
+  .main-container{
+      width: 100%;
+      margin: 0;
+      padding: 0;
+  }
+  .tweet-container{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .username-div{
+    text-align: center;
+  }
+  .username-text{
+      font-size: 20px;
+      padding: 0;
+      padding-top: 25px;
+      padding-bottom:25px;
+  }
+
+}

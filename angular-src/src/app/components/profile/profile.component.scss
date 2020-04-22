@@ -1,0 +1,106 @@
+#profilePic {
+  display: block;
+  border-radius: 50%;
+  width: 10rem;
+  height: 10rem;
+  box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.5);
+}
+
+.picContainer {
+  width: fit-content;
+  position: relative;
+  margin: 0 auto;
+  padding: 10px;
+}
+.progress {
+  margin: 1em;
+}
+.picContainer:hover .overlay {
+  opacity: 1;
+}
+
+.img-fluid {
+  max-width: 300px;
+  width: 100%;
+}
+
+.overlay {
+  position: absolute;
+  border-radius: 50%;
+  width: 10rem;
+  height: 10rem;
+  opacity: 0;
+  transition: 0.5s ease;
+  background-color: rgb(12, 167, 187);
+}
+
+.text {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.profile-container {
+  margin: 2rem;
+  border-right: 1px solid black;
+}
+
+.profile-img {
+  border-radius: 50%;
+  width: 3em;
+  height: 3em;
+  box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.5);
+  margin-right: 2em;
+  margin: 1em;
+}
+
+@media (max-width: 992px) {
+  .profile-container {
+    margin: 2rem;
+    border-right: none;
+    padding-bottom: auto;
+    margin-bottom: auto;
+  }
+}
+.main-container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.tweet-container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.main-tweet-container {
+  padding: 0;
+}
+
+.list-group {
+  word-break: break-all;
+  overflow: hidden;
+}
+
+/*
+Extra small (xs) devices (portrait phones, less than 576px)
+No media query since this is the default in Bootstrap
+
+Small (sm) devices (landscape phones, 576px and up)
+@media (min-width: 576px) { ... }
+
+Medium (md) devices (tablets, 768px and up)
+@media (min-width: 768px) { ... }
+
+Large (lg) devices (desktops, 992px and up)
+@media (min-width: 992px) { ... }
+
+Extra (xl) large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) { ... }
+*/

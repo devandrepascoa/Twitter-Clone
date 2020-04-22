@@ -1,0 +1,75 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="profile-container col-md-12 col-lg-4">
+            <div class="picContainer text-center">
+                <div *ngIf="myProfile" class="overlay" (click)="profilePicClicked()">
+                    <div class="text">Edit Pic</div>
+                </div>
+                <img id="profilePic" [src]="profilePic" onError="this.src='../../../assets/images/the-parrot-place.jpg'"
+                    alt="Avatar">
+            </div>
+            <input accept="image/png,image/jpeg,image/jpg" type="file" #my_file style="display: none; "
+                (change)="onSubmit($event)" />
+            <div class="progress form-group" *ngIf="progress > 0">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar"
+                    [style.width.%]="progress">
+                </div>
+            </div>
+            <div id="profile-info" *ngIf="user">
+                <h2 class="page-header">{{user.name}}</h2>
+                <p class="lead">@{{user.username}}</p>
+            </div>
+
+            <div *ngIf="!myProfile && followed != null" class="text-center">
+                <button *ngIf="!followed" (click)="follow()" class="btn btn-primary btn-lg">Follow!</button>
+                <button *ngIf="followed" (click)="unfollow()" class="btn btn-primary btn-lg">Unfollow</button>
+            </div>
+
+            <div id="description ">
+                <p class="description"></p>
+            </div>
+
+            <img *ngIf="userRole == 'Moderator'" height="42" width="42" src="../../../assets/images/Modpin.png" alt="ModeratorPin">
+            <img *ngIf="userRole == 'Admin'" height="42" width="42" src="../../../assets/images/crown-jewel-reward-winner-512.png" alt="AdminPin">
+
+            <div *ngIf="validationError" class="alert alert-danger">
+                {{ validationErrorMessage }}
+            </div>
+        </div>
+        <div class="main-tweet-container col-md-12 col-lg-6">
+            <h1 class="display-4 text-center">Tweets!</h1>
+            <div class="tweet-container container mx-auto">
+                <div #tweets class="list-group" *ngFor="let tweet of tweets">
+                    <div attr.data-internal-id="{{tweet._id}}" class="list-group-item">
+                        <div class="row">
+                            <img class="profile-img" [src]="tweet.profile_img_src"
+                                onError="this.src='../../../assets/images/the-parrot-place.jpg'" alt="">
+                            <h1> {{tweet.name}}</h1>
+                        </div>
+                        <p *ngIf="tweet.type == 1" class="lead"> {{tweet.content}}</p>
+                        <img *ngIf="tweet.type == 2" class="img-fluid" [src]="tweet.img_src">
+
+                        <div *ngIf="tweet.type == 3" class="embed-responsive embed-responsive-16by9">
+                            <video [src]="tweet.img_src" controls>
+                            </video>
+                        </div>
+                        <div *ngIf="tweet.type == 4">
+                            <audio style="width:100%;" controls>
+                                <source [src]="tweet.img_src" type="audio/ogg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <small style="margin-left:1em;margin-right: 2em">Date created:
+                                {{tweet.date_created}}</small>
+                            <input *ngIf="tweet.showDelete" type="button" (click)="deleteTweet(tweet._id)"
+                                value="Delete" style="margin-right: 2em;" class="btn btn-danger ml-auto">
+                        </div>
+                    </div>
+                </div>
+                <p class="text-center" #loadMore>Loading...</p>
+            </div>
+        </div>
+    </div>
+</div>

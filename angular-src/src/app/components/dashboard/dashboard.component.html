@@ -1,0 +1,65 @@
+<div class="container main-container">
+    <div class="container-fluid">
+        <br>
+        <form (submit)="sendTweet()" name=" tweetForm" class="mx-auto form-group">
+            <label class="label">Tweet</label>
+            <textarea (ngModelChange)="contentChanged($event)" [(ngModel)]="tweetContent" name="tweetContent"
+                type="text" rows="3" class="form-control"></textarea>
+            <br>
+            <label class="countdown ml-auto">{{countdown}} characters remaining</label>
+            <div class="container text-center">
+                <button type="submit" class="button_parrot btn btn-primary btn-lg" style="margin-right: 1em;">Send
+                    Parrot!</button>
+                <button type="button" class="button_media btn btn-secondary btn-lg" (click)="mediaButtonClicked()"><i
+                        class="fas fa-photo-video"></i></button>
+                <input
+                    accept="image/png,image/jpeg,image/jpg,image/gif,video/mp4,video/webm,audio/mpeg,audio/ogg,audio/wav"
+                    type="file" #my_file style="display: none; " (change)="onSubmit($event)" />
+            </div>
+            <div class="progress form-group" *ngIf="progress > 0">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" [style.width.%]="progress">
+                </div>
+            </div>
+            <br>
+            <div *ngIf="validationError" class="alert alert-danger">
+                {{ validationErrorMessage }}
+            </div>
+        </form>
+    </div>
+
+    <br>
+    <div class="tweet-container container">
+        <div #tweets class="list-group" *ngFor="let tweet of tweets">
+            <div attr.data-internal-id="{{tweet._id}}" class="list-group-item">
+                <div class="row">
+                    <img class="profile-img" [src]="tweet.profile_img_src"
+                        onError="this.src='../../../assets/images/the-parrot-place.jpg'" alt="">
+                    <div class="row username-div">
+                        <a class="username" href="/user/{{tweet.creator_username}}">
+                            <h1 class="col username-text" style="margin:0"> {{tweet.name}}</h1>
+                        </a>
+                    </div>
+                </div>
+                <p *ngIf="tweet.type == 1" class="lead"> {{tweet.content}}</p>
+                <img *ngIf="tweet.type == 2" class="img-fluid" [src]="tweet.img_src">
+
+                <div *ngIf="tweet.type == 3" class="embed-responsive embed-responsive-16by9">
+                    <video [src]="tweet.img_src" controls>
+                    </video>
+                </div>
+                <div *ngIf="tweet.type == 4">
+                    <audio style="width:100%;" controls>
+                        <source [src]="tweet.img_src" type="audio/ogg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <br>
+                <div class="row">
+                    <small style="margin-left:1em;margin-right: 2em">Date created: {{tweet.date_created}}</small>
+                    <input *ngIf="tweet.showDelete" type="button" (click)="deleteTweet(tweet._id)" value="Delete"
+                        style="margin-right: 2em;" class="btn btn-danger ml-auto">
+                </div>
+            </div>
+        </div>
+        <p class="text-center" #loadMore>Loading...</p>
+    </div>

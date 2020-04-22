@@ -1,0 +1,99 @@
+<div class="container">
+    <br>
+    <h2>Editing User: <a class="username" href="/user/{{username}}">@{{username}}</a></h2>
+    <ul ngbNav #nav="ngbNav" style="margin-top: 2em;" [(activeId)]="active" class="nav-tabs">
+        <li [ngbNavItem]="1">
+            <a ngbNavLink>Name</a>
+            <ng-template ngbNavContent>
+                <br>
+                <form (submit)="onChangeName()">
+                    <div class="form-group">
+                        <input type="text" [(ngModel)]="name" name="name" class="form-control"
+                            placeholder="Enter New Name">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <br>
+                <div *ngIf="validationError" class="alert alert-danger">
+                    {{ validationErrorMessage }}
+                </div>
+                <div *ngIf="validationSuccess" class="alert alert-success">
+                    {{ validationSuccessMessage }}
+                </div>
+            </ng-template>
+        </li>
+        <li [ngbNavItem]="2">
+            <a ngbNavLink>Username</a>
+            <ng-template ngbNavContent>
+                <br>
+                <form (submit)="onChangeUsername()">
+                    <div class="form-group">
+                        <input type="text" [(ngModel)]="edited_username" name="edited_username" class="form-control"
+                            placeholder="Enter New Username">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <br>
+                <div *ngIf="validationError" class="alert alert-danger">
+                    {{ validationErrorMessage }}
+                </div>
+                <div *ngIf="validationSuccess" class="alert alert-success">
+                    {{ validationSuccessMessage }}
+                </div>
+            </ng-template>
+        </li>
+        <li [ngbNavItem]="3">
+            <a ngbNavLink>Email</a>
+            <ng-template ngbNavContent>
+                <br>
+                <form (submit)="onChangeEmail()">
+                    <div class="form-group">
+                        <input type="text" [(ngModel)]="email" name="email" class="form-control"
+                            placeholder="Enter New Email:">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <br>
+                <div *ngIf="validationError" class="alert alert-danger">
+                    {{ validationErrorMessage }}
+                </div>
+                <div *ngIf="validationSuccess" class="alert alert-success">
+                    {{ validationSuccessMessage }}
+                </div>
+            </ng-template>
+        </li>
+        <li [ngbNavItem]="4">
+            <a ngbNavLink>Permissions</a>
+            <ng-template ngbNavContent>
+                <p class="lead"> Role: {{role}}</p>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" value="option1" ng-checked="">
+                    <label class="form-check-label" for="exampleRadios1">
+                        User
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" value="option1" >
+                    <label class="form-check-label" for="exampleRadios1">
+                        Moderator
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" value="option1" >
+                    <label class="form-check-label" for="exampleRadios1">
+                        Admin
+                    </label>
+                </div>
+                <br>
+                <div *ngIf="validationError" class="alert alert-danger">
+                    {{ validationErrorMessage }}
+                </div>
+                <div *ngIf="validationSuccess" class="alert alert-success">
+                    {{ validationSuccessMessage }}
+                </div>
+            </ng-template>
+        </li>
+    </ul>
+
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+</div>

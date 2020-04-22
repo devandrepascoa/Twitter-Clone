@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      User management
+    </div>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Username</th>
+            <th scope="col">Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{user.name}}</td>
+            <a class="username" href="/user/{{user.username}}">
+              <td>@{{user.username}}</td>
+            </a>
+            <td>{{user.email}}</td>
+            <td>
+              <a href="/management_edit/{{user.username}}"> <button class="btn btn-primary" >Edit</button></a>
+              <button class="btn btn-danger" (click)="deleteUser(user.username)"
+                style="margin-left: 1em;">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <br>
+  <div *ngIf="validationError" class="alert alert-danger">
+    {{ validationErrorMessage }}
+  </div>
+</div>
