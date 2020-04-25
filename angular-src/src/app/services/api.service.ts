@@ -11,7 +11,7 @@ export class ApiService {
 
   authToken: any;
   user: any;
-  API_URL = "/api/";
+  API_URL = "https://twitter--clone.herokuapp.com/api/";
 
   // Http Headers
   normalHeaders = {
