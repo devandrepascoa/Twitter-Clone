@@ -100,6 +100,7 @@ router.get("/", function (req, res) {
 
 //Register
 router.post("/register", function (req, res) {
+    console.log("Happened")
     const user = new User({ //Instanciating new User based on request
         name: req.body.name,
         googleID: req.body.google_ID,
