@@ -11,7 +11,7 @@ export class ApiService {
 
   authToken: any;
   user: any;
-  API_URL = "http://localhost/api/";
+  API_URL = "/api/";
 
   // Http Headers
   normalHeaders = {

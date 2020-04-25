@@ -14,13 +14,15 @@ const fs = require('fs');
 const router = express.Router();
 const filter = new Filter();
 
+const STORAGE_PATH = "./uploads/"
+
 //Storage engine that includes strategies for the destination path and filename for the multer receiver.
 const storageProfilePic = multer.diskStorage({
     destination: (req, file, callback) => {
-        ensureExists("./uploads/" + req.user._id, 0744, function (err) {
+        ensureExists(STORAGE_PATH + req.user._id, 0744, function (err) {
             if (err) throw err;
         });
-        callback(null, "./uploads/" + req.user._id + "/");
+        callback(null, STORAGE_PATH + req.user._id + "/");
     },
     filename: (req, file, callback) => {
         callback(null, "profile_pic_" + file.originalname);
@@ -30,10 +32,10 @@ const storageProfilePic = multer.diskStorage({
 //Storage engine that includes strategies for the destination path and filename for the multer receiver.
 const storageMediaTweet = multer.diskStorage({
     destination: (req, file, callback) => {
-        ensureExists("./uploads/" + req.user._id, 0744, function (err) {
+        ensureExists(STORAGE_PATH + req.user._id, 0744, function (err) {
             if (err) throw err;
         });
-        callback(null, "./uploads/" + req.user._id + "/");
+        callback(null, STORAGE_PATH + req.user._id + "/");
     },
     filename: (req, file, callback) => {
         callback(null, "media_" + file.originalname);
