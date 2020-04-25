@@ -14,6 +14,6 @@ module.exports = {
         secretKey: "Oh yes baby wtf are you doing baby yeah"
     },
     mongodb: {
-        dbURI: "mongodb://localhost:27017/twitter_clone"
+        dbURI: process.env.MONGODB_URI || "mongodb://localhost:27017/test"
     }
 }
