@@ -9,7 +9,7 @@ const keys = require("./config/keys");
 const compression = require("compression");
 
 //Conects to the mongoDb database
-mongoose.connect(process.env.MONGODB_URI || keys.mongodb.dbURI);
+mongoose.connect(keys.mongodb.dbURI);
 
 //Checks for database connection
 mongoose.connection.on("connected", function () {
