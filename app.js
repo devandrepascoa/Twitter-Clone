@@ -1,5 +1,10 @@
 //Dependencies for the server
-const result = require('dotenv').config()
+
+/* const result = require('dotenv').config()
+if (result.error) {
+    throw result.error
+} */
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -9,9 +14,7 @@ const passport = require("passport");
 const keys = require("./config/keys");
 const compression = require("compression");
 
-if (result.error) {
-  throw result.error
-}
+
  
 //Conects to the mongoDb database
 mongoose.connect(keys.mongodb.dbURI,{ useNewUrlParser: true ,useUnifiedTopology: true } );
