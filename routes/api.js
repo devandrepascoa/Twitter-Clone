@@ -1,6 +1,7 @@
 //API dependencies
 const express = require("express");
 const passport = require("passport");
+const aws = require('aws-sdk');
 const keys = require("../config/keys");
 const jwt = require("jsonwebtoken");
 const Filter = require("bad-words");
@@ -15,6 +16,7 @@ const router = express.Router();
 const filter = new Filter();
 
 const STORAGE_PATH = "./uploads/"
+aws.config.region = 'eu-west-2';
 
 //Storage engine that includes strategies for the destination path and filename for the multer receiver.
 const storageProfilePic = multer.diskStorage({
@@ -42,8 +44,33 @@ const storageMediaTweet = multer.diskStorage({
     }
 });
 
+const getSignedS3 = (filename,filetype,callback)=>{
+    const s3 = new aws.S3();
+    const fileName = req.query['file-name'];
+    const fileType = req.query['file-type'];
+    const s3Params = {
+      Bucket: keys.aws.S3_BUCKET,
+      Key: fileName,
+      Expires: 60,
+      ContentType: fileType,
+      ACL: 'public-read'
+    };
+  
+    s3.getSignedUrl('putObject', s3Params, (err, data) => {
+      if(err){
+        console.log(err);
+        return res.end();
+      }
+      const returnData = {
+        signedRequest: data,
+        url: `https://${keys.aws.S3_BUCKET}.s3.amazonaws.com/${fileName}`
+      };
+      callback(returnData);
+    });
+}
+
 //Function to ensure file in named path exists, if it doesn't exist then it creates it
-function ensureExists(path, mask, cb) {
+const ensureExists = (path, mask, cb) => {
     if (typeof mask == 'function') { // allow the `mask` parameter to be optional
         cb = mask;
         mask = 0777;

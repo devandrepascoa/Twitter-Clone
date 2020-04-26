@@ -11,9 +11,14 @@ module.exports = {
 
     },
     JWT: {
-        secretKey: "Oh yes baby wtf are you doing baby yeah"
+        secretKey: process.env.secretKey || "1"
     },
     mongodb: {
         dbURI: process.env.MONGODB_URI || "mongodb://localhost:27017/test"
+    },
+    aws: {
+        S3_BUCKET = process.env.S3_BUCKET || "1",
+        AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY || "1",
+        AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID || "1"
     }
 }
