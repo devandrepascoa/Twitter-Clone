@@ -48,24 +48,25 @@ const getSignedS3 = (user_id,filename,filetype,callback)=>{
     const s3 = new aws.S3();
     const s3Params = {
       Bucket: keys.aws.S3_BUCKET,
-      Key: fileName,
+      Key: filename,
       Expires: 60,
-      ContentType: fileType,
+      ContentType: filetype,
       ACL: 'public-read'
     };
   
     s3.getSignedUrl('putObject', s3Params, (err, data) => {
       if(err){
         console.log(err);
-        return res.end();
+        return;
       }
       const returnData = {
         signedRequest: data,
-        url: "https://${keys.aws.S3_BUCKET}.s3.amazonaws.com/"+ +req.user._id+`${fileName}`
+        url: "https://${keys.aws.S3_BUCKET}.s3.amazonaws.com/"+ +req.user._id+`${filename}`
       };
       callback(returnData);
     });
 }
+
 getSignedS3("Pila","")
 //Function to ensure file in named path exists, if it doesn't exist then it creates it
 const ensureExists = (path, mask, cb) => {
