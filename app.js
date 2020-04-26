@@ -7,6 +7,7 @@ const body_parser = require("body-parser");
 const passport = require("passport");
 const keys = require("./config/keys");
 const compression = require("compression");
+require('dotenv').config()
 
 //Conects to the mongoDb database
 mongoose.connect(keys.mongodb.dbURI);
@@ -48,13 +49,13 @@ require('dotenv').config()
 require("./config/passport")(passport);
 
 //Static folder for Client part
-app.use(express.static("../public"));
+app.use(express.static("./public"));
 
 //Router for the /users api
 app.use("/api", api);
 
 app.get("*", (req, res) => {
-    res.sendFile("../public/index.html");
+    res.sendFile("./public/index.html");
 })
 
 //Starts the server
