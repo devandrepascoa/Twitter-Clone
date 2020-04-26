@@ -4,12 +4,13 @@ Twitter clone with features like adding followers, tweeting videos, audios, imag
 
 
 Dashboard
-![second](second_pic.png)
+![second](docs/second_pic.png)
+
 
 
 
 
 Profile with moderator rights (icon below avatar)
 
-![first](first_pic.png)
+![first](docs/first_pic.png)
 
