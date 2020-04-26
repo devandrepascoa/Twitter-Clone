@@ -5,7 +5,7 @@ const cors = require("cors");
 const path = require("path");
 const body_parser = require("body-parser");
 const passport = require("passport");
-const keys = require("../config/keys");
+const keys = require("./config/keys");
 const compression = require("compression");
 
 //Conects to the mongoDb database
@@ -26,7 +26,7 @@ mongoose.connection.on("error", function (err) {
 const app = express();
 
 //Used for all /api requests
-const api = require("../routes/api");
+const api = require("./routes/api");
 
 //Port for the server
 const port = process.env.PORT || 80;
@@ -45,7 +45,7 @@ app.use(passport.session());
 app.use(compression());
 
 require('dotenv').config()
-require("../config/passport")(passport);
+require("./config/passport")(passport);
 
 //Static folder for Client part
 app.use(express.static("../public"));
