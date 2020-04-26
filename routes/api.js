@@ -44,10 +44,8 @@ const storageMediaTweet = multer.diskStorage({
     }
 });
 
-const getSignedS3 = (filename,filetype,callback)=>{
+const getSignedS3 = (user_id,filename,filetype,callback)=>{
     const s3 = new aws.S3();
-    const fileName = req.query['file-name'];
-    const fileType = req.query['file-type'];
     const s3Params = {
       Bucket: keys.aws.S3_BUCKET,
       Key: fileName,
@@ -63,12 +61,12 @@ const getSignedS3 = (filename,filetype,callback)=>{
       }
       const returnData = {
         signedRequest: data,
-        url: `https://${keys.aws.S3_BUCKET}.s3.amazonaws.com/${fileName}`
+        url: "https://${keys.aws.S3_BUCKET}.s3.amazonaws.com/"+ +req.user._id+`${fileName}`
       };
       callback(returnData);
     });
 }
-
+getSignedS3("Pila","")
 //Function to ensure file in named path exists, if it doesn't exist then it creates it
 const ensureExists = (path, mask, cb) => {
     if (typeof mask == 'function') { // allow the `mask` parameter to be optional

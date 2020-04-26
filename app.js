@@ -1,4 +1,5 @@
 //Dependencies for the server
+const result = require('dotenv').config()
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -7,10 +8,13 @@ const body_parser = require("body-parser");
 const passport = require("passport");
 const keys = require("./config/keys");
 const compression = require("compression");
-require('dotenv').config()
 
+if (result.error) {
+  throw result.error
+}
+ 
 //Conects to the mongoDb database
-mongoose.connect(keys.mongodb.dbURI);
+mongoose.connect(keys.mongodb.dbURI,{ useNewUrlParser: true ,useUnifiedTopology: true } );
 
 //Checks for database connection
 mongoose.connection.on("connected", function () {
@@ -49,13 +53,13 @@ require('dotenv').config()
 require("./config/passport")(passport);
 
 //Static folder for Client part
-app.use(express.static("./public"));
+app.use(express.static(path.join(__dirname, "/public/")));
 
 //Router for the /users api
 app.use("/api", api);
 
 app.get("*", (req, res) => {
-    res.sendFile("./public/index.html");
+    res.sendFile(path.join(__dirname, "/public/index.html"));
 })
 
 //Starts the server
